@@ -1,10 +1,10 @@
 {
-  "name": "michelangelo",
-  "version": "0.8.0",
-  "description": "This is a custom template for the kss-node living style guide.",
-  "repository": "https://github.com/stamkracht/michelangelo.git",
+  "name": "sparklesheets",
+  "version": "0.1.0",
+  "description": "A custom template for the kss-node living style guide. Based on https://github.com/stamkracht/michelangelo.",
+  "repository": "https://github.com/dananjohnson/sparklesheets",
   "license": "MIT",
-  "homepage": "https://github.com/stamkracht/michelangelo",
+  "homepage": "https://github.com/dananjohnson/sparklesheets",
   "scripts": {
     "kss": "kss --config kss-config.json",
     "kss:show": "opn kss_styleguide/styleguide/index.html"
