@@ -1,58 +1,75 @@
-# Make your life easier with styleguides
+# ✨ Sparklesheets: KSS-based Living Style Guide
 
+Generated from SCSS comments using [kss-node](https://github.com/kss-node/kss-node), a Node.js implementation of [Knyle Style Sheets (KSS)](http://warpspire.com/kss/).
 
-## Whaaaat, styleguides?
-Styleguides can be seen as a roadmap for developers and designers to maintain consistency on their code and UI. Some styleguides are built in static HTML, but this is difficult to maintain. A better solution would be a living styleguide, which is auto-generated from the comments in your codebase.
-
-
-## But why?
-During the project lifetime, different developers encounter the codebase. Without an overview of the current foundation of the project, the code could get messy very quickly. With a styleguide you will have consistency, which is easier to maintain. Consistent code keeps the codebase structured and small, this gives the performance a boost. You will have faster build times, because you can refer to the styleguide for the exact styles to use. Besides the usefulness for designers and developers, it could also be helpful for project managers and third parties. You create a common language.
-
-
-## Convincing, when do we begin?
-The best time to start creating your styleguide is at the beginning of a project. This can also be seen as Style Guide Driven Development (SGDD). You develop the components first, document them in a style guide, and connect the pieces afterwards like a puzzle. This will eventually shape the UI. From there it is important to maintain the styleguide when the UI gets an update.
-
-If you're already in the middle of a project it's wise to start off with an interface inventory. [An interface inventory is a comprehensive collection of the bits and pieces that make up your interface](http://bradfrost.com/blog/post/interface-inventory/).
-
-
-## So, how do I start?
-Go to your project directory. If you haven't installed KSS-node yet, install it locally* `npm install kss --save-dev`.
-
-**Don't install KSS-node globally, it will cause problems in the long run when you have multiple projects using KSS-node.*
-
-Now, install the Michelangelo package locally.
-
+## Building the Styleguide
 ```
-npm install michelangelo --save-dev
+yarn kss
 ```
 
-Create a kss-config file `touch kss-config.json` and specify the following config. Read [the KSS-node docs](https://github.com/kss-node/kss-node#using-the-command-line-tool) for more information about the config.
+## Usage
+Documentation is added as comments directly in the SCSS files. See the [KSS docs](https://warpspire.com/kss/syntax/) for full usage guidelines.
+
+Sample usage:
 ```
-{
-  "title"        : "Michelangelo Styleguide",
-  "mask"         : "*.scss",
-  "placeholder"  : "[modifier]",
+// Button (title)
+//
+// Use with a `<button>` or `<a>` block. Can be called using `@include button`
+// or `.button`. (description)
+//
+// (mixin parameter)
+// $bg-color - Background color of the button. Defaults to `inherit`.
+//
+// Markup:
+// <button class="button {{modifier}}">Button Element</button>
+// <a class="button {{modifier}}">Link Button</a>
+//
+// (modifiers)
+// :hover - When user hovers over the button.
+// .button-primary - A button with higher visual priority.
+// .button-secondary - A button with lower visual priority.
+//
+// Weight: 1 (optional ordering, overrides alphabetical order)
+//
+// Styleguide STACSS.Appearance.Buttons (styleguide organization)
 
-"//": "relative to this file.",
-  "builder"      : "node_modules/michelangelo/kss_styleguide/custom-template/",
-  "source"       : "src/",
-  "destination"  : "kss_styleguide/styleguide/",
+@mixin button($bg-color: inherit) {
+  color: $neutralWhite;
+  background-color: $bg-color;
 
-"//": "relative to source.",
-  "homepage"     : "../kss_styleguide/kss-homepage.md",
+  &:hover {
+    background-color: rgba($bg-color, 0.7);
+  }
+}
 
-"//": "relative to the generated style guide.",
-  "css": [],
-  "js" : []
+.button {
+  @include button;
+}
+
+.button-primary {
+  font-weight: bold;
+}
+
+.button-secondary {
+  font-size: 0.8em;
 }
 ```
 
-After setting up the config file, run `kss --config kss-config.json` to generate your living styleguide*. Locate your styleguide at the specified path in your config file and open it in the browser.
+## Configuration
+Set in `kss-config.json` in the project root. Note that the file paths for site CSS and JS files are pulled from the Webpack asset manifest file. See `webpack/kss/build.js`.
+```
+{
+  "title"        : "Health Share Styleguide",
+  "mask"         : "*.scss",
+  "placeholder"  : "[modifier]",
 
-**If you get the error `command not found: kss`. Fix this by adding `./node_modules/.bin` to your `PATH`.*
+  "builder"      : "node_modules/michelangelo/kss_styleguide/custom-template/",
+  "source"       : "themes/healthshare/assets/style/stylesheets/",
+  "destination"  : "www/styleguide/",
 
+  "css"          : *see webpack/kss/build.js*
+  "js"          : *see webpack/kss/build.js*
 
-## Cowabunga!
-You have finished the setup. From here on out you can start writing the documentation*. I would love to explain it all in detail to you, but you know.. pizza!
-
-**To get familiar with the documentation syntax it is highly advised to read through [the annotated copy of the official KSS spec on the KSS-node repository](https://github.com/kss-node/kss/blob/spec/SPEC.md).*
+  "homepage"     : "../styleguide-intro.md"
+}
+```
