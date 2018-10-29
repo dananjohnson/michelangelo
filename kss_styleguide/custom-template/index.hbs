@@ -7,7 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="generator" content="kss-node">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,300">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,700">
     <link rel="stylesheet" href="kss-assets/vendor/prism.css">
     <link rel="stylesheet" href="kss-assets/css/kss.css">
     {{{styles}}}
@@ -136,9 +136,13 @@
                   </article>
                 {{/each}}
               </article>
-
+ 
               {{#if example}}
                 <article class="kss-section__markup">
+                  <div class="markup-toggle">
+                    <h2 class="kss-modifiers__heading">Show Markup +</h2>
+                  </div>
+                  <input type="checkbox" class="markup-toggle__checkbox">
                   <pre><code class="language-markup">{{markup}}</code></pre>
                 </article>
               {{/if}}

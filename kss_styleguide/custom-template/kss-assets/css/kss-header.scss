@@ -1,5 +1,5 @@
-$kss-header-color: $cowabunga;
-$kss-header-hamburger-color: $cowabunga;
+$kss-header-color: $primary;
+$kss-header-hamburger-color: $primary;
 
 $bar-height: 4px;
 $bar-width: 30px;
@@ -17,7 +17,7 @@ $bar-width: 30px;
   padding: 10px;
   color: $kss-header-color;
   background: $white;
-  font-family: 'Lato', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
 
   @include mq(min, 1025px) { display: none; }
